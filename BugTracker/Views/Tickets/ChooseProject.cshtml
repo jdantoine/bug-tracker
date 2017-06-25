@@ -1,0 +1,23 @@
+﻿@model BugTracker.Models.ChooseProjectViewModel
+@{
+    ViewBag.Title = "ChooseProject";
+}
+
+<div class="col-md-4 col-md-offset-4">
+    <div class="box-info shadow">
+        <h2>Choose Project</h2>
+        <div class="box-content">
+            @using (Html.BeginForm("ChooseProject", "Tickets"))
+            {
+                @Html.AntiForgeryToken()
+                <p>Please select the project that the new ticket will belong to.</p>
+                <div class="form-group">
+                    @Html.DropDownListFor(m => m.SelectedProjectId, Model.Projects, "Select Project", htmlAttributes: new { @class = "form-control btn-block" })
+                    <input type="submit" class="btn-pad btn btn-warning" value="Choose Project" />
+                    <a class="cancel btn-pad btn btn-warning">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,207 @@
+﻿@model IEnumerable<BugTracker.Models.Ticket>
+@using BugTracker.HelperExtensions
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="ticketIndex" class="col-md-12">
+    <h2><span class="pull-right">
+    <a href="#unassigned" class="section-scroll"><i class="fa fa-angle-down"></i> Unassigned</a>
+        <a href="#open" class="section-scroll"><i class="fa fa-angle-down"></i> Open Tickets</a>
+        <a href="#resolved" class="section-scroll"><i class="fa fa-angle-down"></i> Resolved Tickets</a
+><a href=@Url.Action("ChooseProject", "Tickets") class="btn btn-warning"><i class="fa fa-plus"></i> Ticket</a>
+    @if (User.IsInRole("Project Manager") || User.IsInRole("Developer") || User.IsInRole("Submitter"))
+            {<a href=@Url.Action("UserTickets") class="btn btn-warning">View My Tickets</a>    }
+</span></h2>
+    <div class="clearfix"></div>
+    <br />
+
+    <!--UNASSIGNED TICKETS-->
+    <div id="unassigned" class="box-info shadow">
+        <h2><strong>Unassigned</strong> Tickets</h2>
+        <div class="box-content">
+            <table id="unassignedTickets" class="data-table-xl hover table-striped compact">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Assigned To</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Phase</th>
+                        <th>Submitted By</th>
+                        <th>On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in Model.Where(t => t.Status.Name == "Unassigned" || t.Priority == null || t.AssignedToId == null))
+                    {
+                        <tr>
+                            <td>@ticket.Name</td>
+                            @if (ticket.Project == null)
+                            {
+                                <td>unassigned</td>}
+                            else
+                            {
+                                <td>@ticket.Project.Name</td> }
+                            @if (ticket.AssignedToId == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.AssignedTo.FullName</td> }
+                            @if (ticket.Priority == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Priority.Name</td> }
+                            @if (ticket.Status == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Status.Name</td> }
+                            @if (ticket.Action == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Action.Name</td> }
+                            @if (ticket.Phase == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Phase.Name</td> }
+                            <td>@ticket.Submitter.FullName</td>
+                            <td>@ticket.Submitted.FormatDateTimeOffsetCondensed()</td>
+                            <td>
+                                <a href=@Url.Action("Details", "Tickets", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-eye"></i></a>
+                                <a href=@Url.Action("Edit", "Tickets", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href=@Url.Action("Create", "Attachments", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-flip-horizontal fa-paperclip"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--OPEN TICKETS-->
+    <div id="open" class="box-info shadow">
+        <h2><strong>Open </strong>Tickets</h2>
+        <div class="box-content">
+            <table id="openTickets" class="data-table-xl hover table-striped compact">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Assigned To</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Phase</th>
+                        <th>Submitted By</th>
+                        <th>On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in Model.Where(t => t.Status.Name != "Resolved" && (t.Status.Name != "Unassigned" || t.Priority != null || t.AssignedToId != null)))
+                    {
+                        <tr>
+                            <td>@ticket.Name</td>
+                            @if (ticket.Project == null)
+                            {
+                                <td>unassigned</td>}
+                            else
+                            {
+                                <td>@ticket.Project.Name</td> }
+                            @if (ticket.AssignedToId == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.AssignedTo.FullName</td> }
+                            @if (ticket.Priority == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Priority.Name</td> }
+                            @if (ticket.Status == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Status.Name</td> }
+                            @if (ticket.Action == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Action.Name</td> }
+                            @if (ticket.Phase == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.Phase.Name</td> }
+                            <td>@ticket.Submitter.FullName</td>
+                            <td>@ticket.Submitted.FormatDateTimeOffsetCondensed()</td>
+                            <td>
+                                <a href=@Url.Action("Details", "Tickets", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-eye"></i></a>
+                                <a href=@Url.Action("Edit", "Tickets", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href=@Url.Action("Create", "Attachments", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-flip-horizontal fa-paperclip"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--RESOLVED TICKETS-->
+    <div id="resolved" class="box-info shadow">
+        <h2><strong>Recently Resolved</strong> Tickets</h2>
+        <div class="box-content">
+            <table id="resolvedTickets" class="data-table-a hover table-striped compact">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Assigned To</th>
+                        <th>Closed</th>
+                        <th>Submitted On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in Model.Where(t => t.Status.Name == "Resolved" && t.Closed.DateTime >= DateTime.Now.AddDays(-14)))
+            {
+                        <tr>
+                            <td>@ticket.Name</td>
+                            @if (ticket.Project == null)
+                            {
+                                <td>unassigned</td>}
+                            else
+                            {
+                                <td>@ticket.Project.Name</td> }
+                            @if (ticket.AssignedToId == null)
+                            {
+                                <td>unassigned</td> }
+                            else
+                            {
+                                <td>@ticket.AssignedTo.FullName</td> }
+                            <td>@ticket.Closed.FormatDateTimeOffset()</td>
+                            <td>@ticket.Submitted.FormatDateTimeOffset()</td>
+                            <td>
+                                <a href=@Url.Action("Details", "Tickets", new { id = ticket.Id }) class="btn btn-xs btn-warning"><i class="fa fa-eye"></i></a>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

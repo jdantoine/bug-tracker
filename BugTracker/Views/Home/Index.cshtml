@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_AnonLayout.cshtml";
+}
+
+
+    
+    
+        <div class="centerRL">
+            <div class="login-wrap"> 
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href=@Url.Action("Login", "Account") class="btn btn-warning text-white btn-block"><i class="fa fa-unlock"></i> Login</a>
+                    <a href=@Url.Action("Register", "Account") class="btn btn-warning text-white btn-block"><i class="fa fa-user fa-inverse"></i> Register</a>
+                }
+                    <h4>Demo app as:</h4>
+                    @using (Html.BeginForm("LoginGuestSubmitter", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-dark btn-block">Submitter</button>
+                    }
+
+
+                    @using (Html.BeginForm("LoginGuestDeveloper", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-dark btn-block">Developer</button>
+                    }
+
+
+                    @using (Html.BeginForm("LoginGuestProjectManager", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-dark btn-block">Project Manager</button>
+                    }
+                    @using (Html.BeginForm("LoginGuestAdministrator", "Account"))
+                   {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-dark btn-block">Administrator</button>
+                    }
+                </div>
+            </div>
+       
+
+
+
+    <div class="row psd">
+        <div id="title" class="col-md-5" style="top: 400px;margin-left: 0px;right: 0px;left: 0px;">
+            <h4 style="color:#f0ad4e">  <a href=@Url.Action("About", "Home")>What is JD Bug Tracking<br />System?</a></h4>
+</div>
+    </div>

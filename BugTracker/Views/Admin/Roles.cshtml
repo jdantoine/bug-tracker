@@ -1,0 +1,48 @@
+﻿@model BugTracker.Models.RolesIndexViewModel
+
+
+<div id="rolesRender" class="col-md-9">
+    @ViewBag.SuccessMessage()
+    @ViewBag.ErrorMessage()
+        <div class="box-info shadow">
+            <h2>Administrators: <small>Includes (@Model.Administrators.Count()) Users</small><button type="button" class="addRemoveUser btn btn-warning" data-name="Administrator"><i class="fa fa-plus"></i>/<i class="fa fa-minus"></i> User</button></h2>
+            <ul>
+                @foreach (var user in Model.Administrators)
+                {
+                    <li>@user.FullName</li>
+                }
+            </ul>
+        </div>
+    <div class="box-info shadow">
+        <h2>Project Managers: <small>Includes (@Model.ProjectManagers.Count()) Users</small><button type="button" class="addRemoveUser btn btn-warning" data-name="Project Manager"><i class="fa fa-plus"></i>/<i class="fa fa-minus"></i> User</button></h2>
+        <ul>
+            @foreach (var user in Model.ProjectManagers)
+            {
+                <li>@user.FullName</li>
+            }
+        </ul>
+    </div>
+
+    <div class="box-info shadow">
+        <h2>Developers: <small>Includes (@Model.Developers.Count()) Users</small><button type="button" class="addRemoveUser btn btn-warning" data-name="Developer"><i class="fa fa-plus"></i>/<i class="fa fa-minus"></i> User</button></h2>
+        <ul>
+            @foreach (var user in Model.Developers)
+            {
+                <li>@user.FullName</li>
+            }
+        </ul>
+    </div>
+
+    <div class="box-info shadow">
+        <h2>Submitters: <small>Includes (@Model.Submitters.Count()) Users</small><button type="button" class="addRemoveUser btn btn-warning" data-name="Submitter"><i class="fa fa-plus"></i>/<i class="fa fa-minus"></i> User</button></h2>
+        <ul>
+            @foreach (var user in Model.Submitters)
+            {
+                <li>@user.FullName</li>
+            }
+        </ul>
+    </div>
+    <div id="editView" class="col-md-3">
+
+    </div>
+</div>
